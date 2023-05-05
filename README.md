@@ -1,4 +1,4 @@
-"# angular-flask" 
+# angular-flask
 
 Create virtual environment for python backend
 
