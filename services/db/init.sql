@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS online_exam;
+CREATE DATABASE online_exam;

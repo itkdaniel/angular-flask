@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  db:
+    build: 
+      context: ./services/db
+      dockerfile: Dockerfile
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: online_test
+      POSTGRES_PASSWORD: 0NLIN3-ex4m
