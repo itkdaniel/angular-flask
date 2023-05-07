@@ -1,12 +1,29 @@
 version: '3'
 
 services:
+  api:
+    build:
+      context: ./services/api
+      dockerfile: Dockerfile
+    ports:
+      - '5000:5000'
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: always
+
   db:
     build: 
       context: ./services/db
       dockerfile: Dockerfile
-    ports:
-      - "5432:5432"
     environment:
       POSTGRES_DB: online_test
       POSTGRES_PASSWORD: 0NLIN3-ex4m
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 3
+    

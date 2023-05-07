@@ -14,15 +14,29 @@ Create/Run docker postgresql container
 
 `docker run --name online-exam-db -p 5432:5432 -e POSTGRES_DB=online-exam -e POSTGRES_PASSWORD=0NLIN3-ex4m -d postgres`
 
-** Alternatively ** Start postgresql docker container using docker-compose
+** Alternatively ** Start postgresql and api docker container using docker-compose
 
-` docker-compose up db`  
+` docker-compose up` to run all services  
+
+To Build and run individually
+
+`/db$: docker build -t angular-flask-db --no-cache .`
+
+`/db$: docker run -p 5432:5432 angular-flask-db`
+
+`/api$: docker build -t angular-flask-api --no-cache .`
+
+`/api$: docker run -p 5000:5000 angular-flask-api`
 
 To enter psql interactivate mode
 
 `docker exec -it angular-flask-db-1 bash`  
 
 `psql -h localhost -U postgres`
+
+Test insert data
+
+`insert into exams values ('Docker Test', 'Test about Docker', 22);`
 
 To exist interactive mode
 
@@ -31,6 +45,16 @@ To exist interactive mode
 Test db entities
 
 `(venv)../backend$: python -m src.main`
+
+Set FLASK_APP environment variable
+
+`set FLASK_APP=.\src\app.py`
+
+Run Flask api
+
+`/services/api$: python -m src.app`
+
+Navigate to `http://localhost:5000/exams` or from cmd `curl http://localhost:5000/exams`
 
 Stop docker container
 

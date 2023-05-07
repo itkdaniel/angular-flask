@@ -4,7 +4,6 @@ from flask_cors import CORS
 from .entities.entity import Session, engine, Base
 from .entities.exam import Exam, ExamSchema
 
-
 # creating the flask app
 app = Flask(__name__)
 
@@ -27,7 +26,7 @@ def get_exams():
 	# serializing as JSON
 	session.close()
 
-	return jsonify(exams.date)
+	return jsonify(exams)
 
 @app.route('/exams', methods=['POST'])
 def add_exam():
@@ -49,6 +48,8 @@ def add_exam():
 	return jsonify(new_exam), 201
 
 
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000, debug=True)
 
 
-
+# curl -X POST -H 'Content-Type: application/json' -d '{"title": "TypeScript Advanced Exam","description": "Tricky questions about TypeScript."}' http://localhost:5000/exams

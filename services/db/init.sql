@@ -1,2 +1,1 @@
-DROP DATABASE IF EXISTS online_exam;
-CREATE DATABASE online_exam;
+SELECT 'CREATE DATABASE online_exam' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'online_exam')\gexec
