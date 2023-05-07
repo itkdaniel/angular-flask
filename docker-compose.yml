@@ -7,17 +7,22 @@ services:
       dockerfile: Dockerfile
     ports:
       - '5000:5000'
+    environment:
+      - DATABASE_URL=postgresql://postgres:0NLIN3-ex4m@db:5432/online_exam
     depends_on:
       db:
         condition: service_healthy
     restart: always
+    networks:
+      - api_nw
+      - db_nw
 
   db:
     build: 
       context: ./services/db
       dockerfile: Dockerfile
     environment:
-      POSTGRES_DB: online_test
+      POSTGRES_DB: online_exam
       POSTGRES_PASSWORD: 0NLIN3-ex4m
     ports:
       - "5432:5432"
@@ -26,4 +31,12 @@ services:
       interval: 5s
       timeout: 5s
       retries: 3
+    networks:
+      - db_nw
+
+networks:
+  api_nw:
+    driver: bridge
+  db_nw:
+    driver: bridge
     

@@ -34,7 +34,7 @@ def add_exam():
 	# mount exam obj
 	posted_exam = ExamSchema(only=('title', 'description')).load(request.get_json())
 
-	exam = Exam(**posted_exam.data, created_by="HTTP post request")
+	exam = Exam(**posted_exam, created_by="HTTP post request")
 
 	# persist exam
 	session = Session()
@@ -53,3 +53,9 @@ if __name__ == '__main__':
 
 
 # curl -X POST -H 'Content-Type: application/json' -d '{"title": "TypeScript Advanced Exam","description": "Tricky questions about TypeScript."}' http://localhost:5000/exams
+
+# curl -X POST -H 'Content-Type: application/json' -d '{\"title\": \"TypeScript Advanced Exam\",\"description\": \"Tricky questions about TypeScript.\"}' http://localhost:5000/exams
+
+# curl -X POST http://localhost:5000/exams -H 'Content-Type: application/json' -j {"title": "TypeScript Advanced Exam","description": "Tricky questions about TypeScript."}
+
+# curl -v -H "Content-Type: application/json" -X POST -d "{ \"title\": \"TypeScript Advanced Exam\",\"description\": \"Tricky questions about TypeScript\" }" http://localhost:5000/exams

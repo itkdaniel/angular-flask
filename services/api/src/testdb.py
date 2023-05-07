@@ -1,5 +1,8 @@
 from .entities.entity import Session, engine, Base
 from .entities.exam import Exam
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
 
 # generate db schema
 Base.metadata.create_all(engine)
