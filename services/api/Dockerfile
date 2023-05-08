@@ -7,10 +7,12 @@ RUN apk update && \
     pip install psycopg2 && \
     apk --purge del .build-deps
 
-# set the working directory to /app
-WORKDIR /app
+RUN mkdir -p /api
 
-# copy requirements file into container at /app
+# set the working directory to /api
+WORKDIR /api
+
+# copy requirements file into container at /api
 COPY requirements.txt .
 
 # install the required packages
@@ -19,8 +21,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Set Flask envrionment variable
 ENV FLASK_APP=.\src\app.py
 
-# copy the rest of the application code into container at /app
-COPY . .
+# copy the rest of the application code into container at /api
+COPY . /api
 
 # Expose the port that the API service will run on
 EXPOSE 5000
