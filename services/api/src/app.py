@@ -12,7 +12,7 @@ Base.metadata.create_all(engine)
 
 CORS(app)
 
-@app.route('/exams', methods=['GET'])
+@app.route('/api/exams', methods=['GET'])
 def get_exams():
 	
 	# fetching from db
@@ -28,7 +28,7 @@ def get_exams():
 
 	return jsonify(exams)
 
-@app.route('/exams', methods=['POST'])
+@app.route('/api/exams', methods=['POST'])
 def add_exam():
 
 	# mount exam obj
@@ -38,7 +38,7 @@ def add_exam():
 
 	# persist exam
 	session = Session()
-	session.add()
+	session.add(exam)
 	session.commit()
 
 	# return created exam
@@ -50,12 +50,3 @@ def add_exam():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
-
-
-# curl -X POST -H 'Content-Type: application/json' -d '{"title": "TypeScript Advanced Exam","description": "Tricky questions about TypeScript."}' http://localhost:5000/exams
-
-# curl -X POST -H 'Content-Type: application/json' -d '{\"title\": \"TypeScript Advanced Exam\",\"description\": \"Tricky questions about TypeScript.\"}' http://localhost:5000/exams
-
-# curl -X POST http://localhost:5000/exams -H 'Content-Type: application/json' -j {"title": "TypeScript Advanced Exam","description": "Tricky questions about TypeScript."}
-
-# curl -v -H "Content-Type: application/json" -X POST -d "{ \"title\": \"TypeScript Advanced Exam\",\"description\": \"Tricky questions about TypeScript\" }" http://localhost:5000/exams
