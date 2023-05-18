@@ -1,7 +1,7 @@
 export const environment = {
     production: false,
     api: {
-        base: 'http://localhost:5000/api/',
+        base: 'http://localhost:5000/api',
         entries: 'exams'
     }
 };
