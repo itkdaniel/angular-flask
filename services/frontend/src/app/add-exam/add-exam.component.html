@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+    <div class="form text-center m-0 d-flex justify-content-center">
+        <form></form>
+    </div>
+    <div class="h-screen flex flex-col 
+                    items-center justify-center">
+            <p class="text-green-700 text-xl mb-3">
+              Add Exam
+            </p>
+  
+            <form [formGroup]="examForm"  (ngSubmit)='onSubmit()' #form>
+                <div class="form-group">
+                    <input aria-label="Enter exam title" 
+                           type="text" placeholder="Exam title" 
+                           class="form-control text-sm text-gray-base w-full 
+                                  mr-3 py-5 px-4 h-2 border 
+                                  border-gray-200 rounded mb-2"
+                            formControlName="title"/>
+                </div>
+                <div class="form-group">
+                    <input aria-label="Enter exam description" 
+                           type="text" placeholder="Description"
+                           class="form-control text-sm text-gray-base w-full mr-3 
+                                  py-5 px-4 h-2 border border-gray-200 
+                                  rounded mb-2"
+                            formControlName="description" />
+                </div>
+  
+                <button type="submit"
+                        class="bg-green-400 w-full mt-4">
+                    Submit
+                </button>
+            </form>
+            <p>Form Value: {{ examForm.value }}</p>
+            <p>Form Status: {{ examForm.status }}</p>
+        </div>
+<body>
+</body>
+</html>
