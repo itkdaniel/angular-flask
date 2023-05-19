@@ -9,13 +9,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { ExamsApiService } from './services/exams-api.service';
 import { HomePageComponent } from './home-page/home-page.component';
 import { AddExamComponent } from './add-exam/add-exam.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { ExamDetailsComponent } from './exam-details/exam-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ExamListComponent,
     HomePageComponent,
-    AddExamComponent
+    AddExamComponent,
+    NavbarComponent,
+    ExamDetailsComponent
   ],
   imports: [
     BrowserModule,
