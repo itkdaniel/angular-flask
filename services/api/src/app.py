@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_cors import cross_origin
-
+from sqlalchemy import exc
 from .entities.entity import Session, engine, Base
 from .entities.exam import Exam, ExamSchema
 from marshmallow import ValidationError
@@ -36,6 +36,23 @@ def get_exams():
 	# response.headers.add("Access-Control-Allow-Origin", "GET,POST,OPTIONS,DELETE,PUT")
 
 	return response
+
+@app.route('/api/exam/<id>', methods=['GET'])
+def get_exam(id):
+	session = Session()
+
+	try:
+		exam = session.query(Exam).filter_by(id=id).first()
+	except exc.ProgrammingError as err:
+		return err.messages, 501
+	
+	schema = ExamSchema()
+	exam = schema.dump(exam)
+	response = jsonify(exam)
+	
+	return response, 200
+
+
 
 # @cross_origin(origins = "http://localhost:4200") # optionl
 @app.route('/api/exams', methods=['POST'])

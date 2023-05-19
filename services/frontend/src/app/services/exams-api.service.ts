@@ -16,21 +16,23 @@ export class ExamsApiService {
 
   // GET list of public, future events
   getExams(): Observable<Exam[]> {
-    return this.http
-      .get<Exam[]>(`${API_BASE_URL}/exams`);
+    return this.http.get<Exam[]>(`${API_BASE_URL}/exams`);
+  }
+
+  // GET an exam
+  getExam(id: any): Observable<Exam> {
+    return this.http.get<Exam>(`${API_BASE_URL}/exam/`+ id); 
   }
 
   // POST exam details
-  addExam(title: any, description: any) {
+  addExam(title: any, description: any): Observable<Exam> {
     let exam = new Exam(title, description);
     console.log(`post exam: ${exam}`)
     const httpHeaders: HttpHeaders = new HttpHeaders({
       Authorization: 'Bearer JWT-token'
   });
     const requestOptions = { headers: httpHeaders };
-
-    return this.http
-      .post<any>(`${API_BASE_URL}/exams`, exam, requestOptions);
+    return this.http.post<Exam>(`${API_BASE_URL}/exams`, exam, requestOptions);
   } 
 }
 
