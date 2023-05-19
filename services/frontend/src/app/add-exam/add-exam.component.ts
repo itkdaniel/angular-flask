@@ -25,8 +25,9 @@ export class AddExamComponent {
       alert('Please fill out exam details');
     } else {
         this.examService.addExam(this.title?.value, this.description?.value).subscribe(data => {
-          console.log(`data: ${data}`);
-          console.log(`id: ${data.id},title: ${data.title}`)
+          console.log(`data: ${JSON.stringify(data)}`);
+          console.log(`id: ${data.id},title: ${data.title}`);
+          console.log(`created_at: ${data.created_at}`);
         })
       console.log("examForm: " + this.examForm.value);
     }
