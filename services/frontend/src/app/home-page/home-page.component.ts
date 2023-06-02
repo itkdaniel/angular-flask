@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-page',
@@ -7,7 +9,10 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
   styleUrls: ['./home-page.component.css']
 })
 export class HomePageComponent {
-  constructor (private fb: FormBuilder) {}
+  status = {"authenticated": false, "username": null}
+  // authenticated: boolean = false;
+  // current_user = {"username": null};
+  constructor (private fb: FormBuilder, private router: Router, private authService: AuthService) {}
 
   loginForm = this.fb.group({
     username: ['', Validators.required],
@@ -18,6 +23,20 @@ export class HomePageComponent {
   get password() { return this.loginForm.get('password'); }
   
   onSubmit () {
-    console.log(this.loginForm);
+    this.loginUser();
   }
+
+  private loginUser(): void {
+    this.authService.loginUser(this.username?.value, this.password?.value).subscribe(
+      res => {
+        console.log(JSON.stringify(res));
+        if (res["status"] == "success") {
+          this.status["authenticated"] = true;
+          this.status["username"] = res["user"];
+          this.router.navigateByUrl("/exams");
+        }
+      });
+  }
+
+  ngOnInit() {}
 }

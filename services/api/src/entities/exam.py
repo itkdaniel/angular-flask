@@ -1,8 +1,9 @@
 import sqlalchemy
 from sqlalchemy import Column, String
-from .entity import Entity, Base
+from .entity import Entity, Base, Session
 from marshmallow import Schema, fields
 
+db = Session()
 
 class Exam(Entity, Base):
 

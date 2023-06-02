@@ -3,5 +3,8 @@ export const environment = {
     api: {
         base: 'http://localhost:5000/api',
         entries: 'exams'
+    },
+    auth: {
+        
     }
 };

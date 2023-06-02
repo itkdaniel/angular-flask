@@ -8,9 +8,15 @@
   </head>
   <body>
     <div class="mt-3 font-sans text-2xl" style="text-align:center">
+        <div *ngIf="username">
+            <div class="relative flex">
+                Welcome, {{ username }}
+            </div>
+        </div>
         <h1>Exams</h1>
     </div>
     <p class="font-sans text-xl">Here are the exams created so far: </p>
+    <div *ngIf="message">{{ message }}</div>
     <ul class="ml-5 font-sans text-lg">
       <li class="my-3" *ngFor="let exam of examsList">
         <a class="transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 hover:bg-gray-300 rounded-md px-2 py-2 duration-100" routerLink="/exam/{{exam.id}}">{{exam.title}}</a>

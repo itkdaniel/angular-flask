@@ -4,7 +4,9 @@ from flask_cors import cross_origin
 from sqlalchemy import exc
 from .entities.entity import Session, engine, Base
 from .entities.exam import Exam, ExamSchema
+from .entities.user import User, UserSchema
 from marshmallow import ValidationError
+import bcrypt
 
 # creating the flask app
 app = Flask(__name__)
@@ -13,6 +15,60 @@ app = Flask(__name__)
 Base.metadata.create_all(engine)
 
 CORS(app) # support_credentials=True - (optional)
+
+@app.route('/api/users', methods=['GET'])
+def get_users():
+	session = Session()
+	user_objects = session.query(User).all()
+	schema = UserSchema(many=True)
+	users = schema.dump(user_objects)
+	session.close()
+	response = jsonify(users)
+
+	return response, 200
+
+@app.route('/api/users/register', methods=['POST'])
+def register():
+	response_object = {
+		'status': 'success',
+		'user': '',
+		'message': ''
+	}
+	json_data = request.get_json()
+	if not json_data:
+		return {"message": "No input data provided"}, 400
+	try:
+		data = UserSchema(only=('username', 'password')).load(json_data)
+	except ValidationError as err:
+		return err.messages, 422
+	username, password = data['username'], data['password']
+	# check if username exists in db
+	session = Session()
+	user = session.query(User).filter_by(username=username).first()
+	if user:
+		response_object['username'] = username
+		response_object['status'] = 'failed'
+		response_object['message'] = 'Username already exists'
+		return jsonify(response_object), 409
+
+	# convert pw to array of bytes
+	pwd_bytes = password.encode('utf-8')
+	# generate salt
+	salt = bcrypt.gensalt()
+	# hash the pw
+	hashed_pw = bcrypt.hashpw(pwd_bytes, salt)
+	# create new user
+	user = User(username=username, password=hashed_pw, salt=salt, created_by='HTTP post request')
+	session.add(user)
+	session.commit()
+	# return created user and response object
+	new_user = UserSchema().dump(user)
+	session.close()
+	response_object['user'] = new_user
+	response_object['message'] = f'user: {username} created'
+
+	return jsonify(response_object), 201
+
 
 @app.route('/api/exams', methods=['GET'])
 def get_exams():
@@ -35,7 +91,7 @@ def get_exams():
 	# response.headers.add("Access-Control-Allow-Origin", "*")
 	# response.headers.add("Access-Control-Allow-Origin", "GET,POST,OPTIONS,DELETE,PUT")
 
-	return response
+	return response, 200
 
 @app.route('/api/exam/<id>', methods=['GET'])
 def get_exam(id):
@@ -49,7 +105,7 @@ def get_exam(id):
 	schema = ExamSchema()
 	exam = schema.dump(exam)
 	response = jsonify(exam)
-	
+
 	return response, 200
 
 
@@ -67,7 +123,6 @@ def add_exam():
 	# mount exam obj
 	try:
 		data = ExamSchema(only=('title', 'description')).load(json_data)
-		print(data)
 	except ValidationError as err:
 		return err.messages, 422
 
@@ -78,7 +133,6 @@ def add_exam():
 	if exam is None:
 		# create new exam
 		exam = Exam(title=title, description=description, created_by="HTTP post request")
-		print(exam)
 		# persist exam
 		session.add(exam)
 

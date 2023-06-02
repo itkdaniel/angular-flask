@@ -1,14 +1,16 @@
+import os
 from datetime import datetime
 from sqlalchemy import create_engine, Column, String, Integer, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-db_url = 'db:5432'
-db_name = 'online_exam'
-db_user = 'postgres'
-db_password = '0NLIN3-ex4m'
+# db_url = 'db:5432'
+# db_name = 'online_exam'
+# db_user = 'postgres'
+# db_password = 'postgres'
 
-engine = create_engine(f'postgresql://{db_user}:{db_password}@{db_url}/{db_name}')
+# engine = create_engine(f'postgresql://{db_user}:{db_password}@{db_url}/{db_name}')
+engine = create_engine(os.environ.get('DATABASE_URL'))
 
 Session = sessionmaker(bind=engine)
 

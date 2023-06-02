@@ -2,7 +2,7 @@ version: '3'
 
 services:
   frontend:
-    container_name: frontend_container
+    # container_name: frontend_container
     build:
       context: ./services/frontend
       dockerfile: Dockerfile
@@ -20,7 +20,9 @@ services:
     ports:
       - "5000:5000"
     environment:
-      - DATABASE_URL=postgresql://postgres:0NLIN3-ex4m@db:5432/online_exam
+      - FLASK_APP=./src/app.py
+      - APP_SETTINGS=src.config.DevelopmentConfig
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/online_exam
     depends_on:
       db:
         condition: service_healthy
@@ -35,7 +37,8 @@ services:
       dockerfile: Dockerfile
     environment:
       POSTGRES_DB: online_exam
-      POSTGRES_PASSWORD: 0NLIN3-ex4m
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
     ports:
       - "5432:5432"
     healthcheck:

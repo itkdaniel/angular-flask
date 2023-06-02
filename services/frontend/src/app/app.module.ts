@@ -11,6 +11,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { AddExamComponent } from './add-exam/add-exam.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ExamDetailsComponent } from './exam-details/exam-details.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ExamDetailsComponent } from './exam-details/exam-details.component';
     HomePageComponent,
     AddExamComponent,
     NavbarComponent,
-    ExamDetailsComponent
+    ExamDetailsComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

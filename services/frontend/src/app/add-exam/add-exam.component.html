@@ -17,20 +17,24 @@
   
             <form [formGroup]="examForm"  (ngSubmit)='onSubmit()' #form>
                 <div class="form-group">
-                    <input aria-label="Enter exam title" 
+                    <input id="title" aria-label="Enter exam title" 
                            type="text" placeholder="Exam title" 
                            class="form-control text-sm text-gray-base w-full 
                                   mr-3 py-5 px-4 h-2 border 
                                   border-gray-200 rounded mb-2"
-                            formControlName="title"/>
+                            formControlName="title"
+                            autocomplete="off"
+                            />
                 </div>
                 <div class="form-group">
-                    <input aria-label="Enter exam description" 
+                    <input id="description" aria-label="Enter exam description" 
                            type="text" placeholder="Description"
                            class="form-control text-sm text-gray-base w-full mr-3 
                                   py-5 px-4 h-2 border border-gray-200 
                                   rounded mb-2"
-                            formControlName="description" />
+                            formControlName="description"
+                            autocomplete="off"
+                            />
                 </div>
   
                 <button type="submit"

@@ -28,7 +28,7 @@ export class AddExamComponent {
           console.log(`data: ${JSON.stringify(data)}`);
           console.log(`id: ${data.id},title: ${data.title}`);
           console.log(`created_at: ${data.created_at}`);
-        })
+        });
       console.log("examForm: " + this.examForm.value);
     }
   }
