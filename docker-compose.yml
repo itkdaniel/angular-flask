@@ -1,11 +1,11 @@
 version: '3'
-
 services:
   frontend:
-    # container_name: frontend_container
     build:
       context: ./services/frontend
       dockerfile: Dockerfile
+    volumes:
+      - './services/frontend:/frontend'
     ports:
       - "4200:4200"
     depends_on:
@@ -17,16 +17,24 @@ services:
     build:
       context: ./services/api
       dockerfile: Dockerfile
+    volumes:
+      - './services/api:/api'
     ports:
       - "5000:5000"
     environment:
-      - FLASK_APP=./src/app.py
-      - APP_SETTINGS=src.config.DevelopmentConfig
-      - DATABASE_URL=postgresql://postgres:postgres@db:5432/online_exam
+      FLASK_APP: ./src/app.py
+      APP_SETTINGS: src.config.DevelopmentConfig
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/online_exam
+      DATABASE_TEST_URL: postgresql://postgres:postgres@db:5432/online_exam_test
+      MONGO_URL: mongodb://mongodb:27017/mydatabase
+      MONGO_TEST_URL: mongodb://mongodb:27017/mydatabase_test
+      SECRET_KEY: lostinthesauce
     depends_on:
       db:
         condition: service_healthy
-    restart: always
+      mongodb:
+        condition: service_healthy
+    # restart: always
     networks:
       - api_nw
       - db_nw
@@ -46,6 +54,34 @@ services:
       interval: 5s
       timeout: 5s
       retries: 3
+    networks:
+      - db_nw
+
+  mongodb:
+    build:
+      context: ./services/mongodb
+      dockerfile: Dockerfile
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_INITDB_DATABASE: mydatabase
+      MONGODB_DB: mydatabase
+      MONGODB_HOST: mongodb
+      # MONGODB_PORT: 27017
+      MONGODB_USERNAME: admin
+      MONGODB_PASSWORD: admin
+      MONGO_DATA_DIR: /data/db
+      MONGO_LOG_DIR: /dev/null
+    volumes:
+      - './services/mongodb:/data/db'
+    ports:
+      - 27017
+    healthcheck:
+      test: echo 'db.runCommand({serverStatus:1}).ok' | mongosh admin -u $MONGO_INITDB_ROOT_USERNAME -p $MONGO_INITDB_ROOT_PASSWORD --quiet | grep 1
+      interval: 5s
+      timeout: 5s
+      retries: 3
+    env_file: .env
     networks:
       - db_nw
 
