@@ -12,6 +12,7 @@ import { AddExamComponent } from './add-exam/add-exam.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ExamDetailsComponent } from './exam-details/exam-details.component';
 import { RegisterComponent } from './register/register.component';
+import { ExplorePageComponent } from './explore-page/explore-page.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { RegisterComponent } from './register/register.component';
     AddExamComponent,
     NavbarComponent,
     ExamDetailsComponent,
-    RegisterComponent
+    RegisterComponent,
+    ExplorePageComponent
   ],
   imports: [
     BrowserModule,

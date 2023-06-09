@@ -5,6 +5,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { AddExamComponent } from './add-exam/add-exam.component';
 import { ExamDetailsComponent } from './exam-details/exam-details.component';
 import { RegisterComponent } from './register/register.component';
+import { ExplorePageComponent } from './explore-page/explore-page.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home',pathMatch: 'full' },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'exam/:id', component: ExamDetailsComponent },
   { path:'add-exam', component: AddExamComponent },
   { path: 'register', component: RegisterComponent},
+  { path: 'explore', component: ExplorePageComponent},
 ];
 
 @NgModule({

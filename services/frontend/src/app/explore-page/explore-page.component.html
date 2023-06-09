@@ -1,0 +1,35 @@
+<!-- <p>explore-page works!</p> -->
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="w-50 mt-4 mx-auto bg-gray-300 items-center justify-center">
+
+        <div class="flex w-32 h-32 mx-auto bg-blue-400 content-center justify-center items-center text-center">
+            <div class="flex w-100 h-100 items-center justify-content-center">Profile Photo</div>
+        </div>
+        <div class="content-end align-bottom mt-4">
+
+            <div class="relative flex-row bg-red-300">Bio Info</div>
+            <div class="relative flex-row bg-yellow-300">Bio Info</div>
+            <div class="relative flex-row bg-orange-300">Bio Info</div>
+        </div>
+
+    </div>
+    <div class="grid grid-cols-6 gap-1 bg-gray-200 mx-16 my-8 rounded-lg justify-content-center items-center justify-center">
+        <div *ngFor="let post of posts; index as i" class="">
+            <div class="container h-40 w-96 md:h-40 my-2 overflow-hidden overscroll-contain">
+                <div class="overscroll-contain md:overflow-hidden sm:overflow-hidden bg-green-400 hover:bg-green-300 justify-center items-center">
+                    <span><strong>{{i+1}}.</strong></span> 
+                    {{loremipsum}}
+                </div>
+            </div>
+        </div>
+      </div>
+  </body>
+</html>
