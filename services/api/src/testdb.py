@@ -3,6 +3,8 @@ from .entities.exam import Exam
 from .entities.user import User
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from src.api.users import create_user
+from src import db
 
 
 # generate db schema
@@ -11,17 +13,17 @@ Base.metadata.create_all(engine)
 # test db table exams
 def test_exams():
 	# start session
-	session = Session()
+	# session = Session()
 	# check for existing data
-	exams = session.query(Exam).all()
+	exams = Exam.query.all()
 	if len(exams) == 0:
 		# create and persist mock exam
 		python_exam = Exam("SQLAlchemy Exam", "Test about SQLAlchemy", "script")
-		session.add(python_exam)
-		session.commit()
-		session.close()
+		db.session.add(python_exam)
+		db.session.commit()
+		db.session.close()
 		# reload exams
-		exams = session.query(Exam).all()
+		exams = Exam.query.all()
 	# show existing exams
 	print('### Exams: ')
 	for exam in exams:
@@ -30,16 +32,17 @@ def test_exams():
 # test db table users
 def test_users():
 	# start session
-	session = Session()
-	users = session.query(User).all()
+	# session = Session()
+	users = User.query.all()
 	if len(users) == 0:
 		# create and persist mock user
-		python_user = User("testuser", "testpassword", "tests4lt", "script")
-		session.add(python_user)
-		session.commit()
-		session.close()
+		python_user = User("testuser", "testpassword", "script")
+		python_user = create_user(python_user.username,python_user.password)
+		# session.add(python_user)
+		# session.commit()
+		# session.close()
 		# reload existing users
-		users = session.query(User).all()
+		users = User.query.all()
 	# show existing users
 	print('### Users: ')
 	for user in users:
