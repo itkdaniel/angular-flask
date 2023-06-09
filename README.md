@@ -1,14 +1,14 @@
 # angular-flask
 
-### Create virtual environment for python backend
+### Create virtual environment for python backend api
 
-In ./backend run 
+In ./api run 
 
-`/backend$: python -m venv project_env`
+`/api$: python -m venv venv`
 
-`/backend$: project_env\Scripts\activate`
+`/api$: venv\Scripts\activate`
 
-`/backend$: pip install -r requirements.txt`
+`/api$: pip install -r requirements.txt`
 
 Manually Create/Run docker postgresql container
 
@@ -22,6 +22,12 @@ Manually Create/Run docker postgresql container
 `for /F %i in ('docker images -a -q') do docker rmi -f %i` to remove all images
 
 **OR** `docker rmi imageid ...` to remove images by id
+
+**OR** `docker-down` to stop all services and remove containers/images
+
+**OR** `docker-restart service_name` to stop a service and remove associated container/image
+
+`docker-compose up service_name` to start a specified service
 
 ### To Build and run individually
 
@@ -60,6 +66,18 @@ Run Flask api
 `/services/api$: python -m src.app`
 
 Navigate to `http://localhost:5000/api/exams` or from cmd `curl http://localhost:5000/api/exams`
+
+### Test using docker-compose
+
+Enter api container/service 
+
+`/angular-flask$: docker-compose exec api pytest -v src/test --junitxml=reports/result.xml`
+
+`/angular-flask$: docker-compose exec -it api /bin/sh`
+
+`/api # python -m unittest -v src.test.test_config`
+
+`/api # python -m unittest discover -v`
 
 ### Stop and remove docker containers/images
 
