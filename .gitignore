@@ -23,5 +23,3 @@ services/api/reports/
 
 services/api/.pytest_cache
 services/api/src/__pycache__
-
-.env
