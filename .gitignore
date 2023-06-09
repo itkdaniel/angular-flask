@@ -6,3 +6,22 @@ __pycache__/
 venv/
 
 \.vscode/
+
+services/mongodb/.mongodb
+services/mongodb/diagnostic.data
+services/mongodb/journal
+services/mongodb/.bash*
+services/mongodb/_mdb*
+services/mongodb/collection*
+services/mongodb/index*
+services/mongodb/mongod.lock
+services/mongodb/sizeStorer.wt
+services/mongodb/storage.bson
+services/mongodb/Wired*
+
+services/api/reports/
+
+services/api/.pytest_cache
+services/api/src/__pycache__
+
+.env
