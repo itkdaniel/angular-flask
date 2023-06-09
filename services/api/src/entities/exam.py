@@ -1,11 +1,12 @@
 import sqlalchemy
 from sqlalchemy import Column, String
-from .entity import Entity, Base, Session
+from .entity import Entity, Base#, Session
 from marshmallow import Schema, fields
+from src import db
 
-db = Session()
+# db = Session()
 
-class Exam(Entity, Base):
+class Exam(db.Model,Entity, Base):
 
 	__tablename__ = 'exams'
 

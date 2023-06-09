@@ -1,10 +1,11 @@
 from flask import Blueprint, jsonify, request
-from src.entities.user import User, UserSchema, db
+from src.entities.user import User, UserSchema#, db
 from src import bcrypt, login_manager
 from src.auth import authenticate_user, get_authenticated_user
 from sqlalchemy import exc
 from marshmallow import ValidationError
 from flask_jwt_extended import jwt_required
+from src import db
 
 users_blueprint = Blueprint('users', __name__)
 
@@ -20,11 +21,14 @@ def login():
 	json_data = request.get_json()
 	data = UserSchema(only=('username','password')).load(json_data)
 	username, password = data["username"], data["password"]
-	user = db.query(User).filter_by(username=username).first()
+	# user = db.query(User).filter_by(username=username).first()
+	# user = User.query.filter_by(username=username).first()
+	user = User.query.filter_by(username=username).first()
 	if user and bcrypt.check_password_hash(user.password, password):
 		# login_user(user,remember=True)
 		access_token, refresh_token = authenticate_user(user)
-		user = db.query(User).filter_by(username=username).first()
+		# user = db.query(User).filter_by(username=username).first()
+		user = User.query.filter_by(username=username).first()
 		response['access_token'] = access_token
 		response['refresh_token'] = refresh_token
 		response['user'] = user.username
@@ -38,7 +42,8 @@ def login():
 
 @users_blueprint.route('/api/users', methods=['GET'])
 def get_users():
-	user_list = db.query(User).all()
+	# user_list = db.query(User).all()
+	user_list = User.query.all()
 	schema = UserSchema(many=True)
 	users = schema.dump(user_list)
 	response = jsonify(users)
@@ -46,17 +51,18 @@ def get_users():
 	return response, 200
 
 def create_user(username, password):
-	user = db.query(User).filter_by(username=username).first()
+	# user = db.query(User).filter_by(username=username).first()
+	user = User.query.filter_by(username=username).first()
 	if user is None:
 		hashed_pw = bcrypt.generate_password_hash(password).decode("utf-8")
 		user = User(username=username,password=hashed_pw,created_by='HTTP post request')
-		db.add(user)
-		db.flush()
-		db.commit()
+		db.session.add(user)
+		db.session.flush()
+		db.session.commit()
 		new_user = UserSchema().dump(user)
 		return new_user
 	else:
-		db.rollback()
+		db.session.rollback()
 	return None
 
 @users_blueprint.route('/api/users/register', methods=['POST'])

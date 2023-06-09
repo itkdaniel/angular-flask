@@ -1,10 +1,11 @@
 from flask import Blueprint, jsonify, request
-from src.entities.entity import engine, Base
-from src.entities.exam import Exam, ExamSchema, db
+# from src.entities.entity import engine, Base
+from src.entities.exam import Exam, ExamSchema#, db
 from sqlalchemy import exc
 from marshmallow import ValidationError
 from flask_jwt_extended import current_user, jwt_required, get_jwt_identity
 from src.auth import get_authenticated_user
+from src import db
 
 exams_blueprint = Blueprint('exams', __name__)
 
@@ -13,7 +14,8 @@ exams_blueprint = Blueprint('exams', __name__)
 def get_exams():
 	current_identity = get_jwt_identity()
 	if current_identity:
-		exam_list = db.query(Exam).filter_by(last_updated_by=current_user.username)
+		# exam_list = db.query(Exam).filter_by(last_updated_by=current_user.username)
+		exam_list = Exam.query.filter_by(last_updated_by=current_user.username)
 		schema = ExamSchema(many=True)
 		exams = schema.dump(exam_list)
 		response = jsonify(exams)
@@ -25,7 +27,8 @@ def get_exams():
 @exams_blueprint.route('/api/exam/<id>', methods=['GET'])
 def get_exam(id):
 	try:
-		exam = db.query(Exam).filter_by(id=id).first()
+		# exam = db.query(Exam).filter_by(id=id).first()
+		exam = Exam.query.filter_by(id=id).first()
 	except exc.ProgrammingError as e:
 		return e.messages, 501
 	schema = ExamSchema()
@@ -55,18 +58,19 @@ def add_exam():
 @jwt_required(optional=True)
 def create_exam(title, description):
 	try:
-		exam = db.query(Exam).filter_by(title=title,description=description).first()
+		# exam = db.query(Exam).filter_by(title=title,description=description).first()
+		exam = Exam.query.filter_by(title=title,description=description).first()
 		if exam is None: # add exam to db
 			current_identity = get_jwt_identity()
 			if current_identity:
 				exam = Exam(title=title,description=description,created_by=current_user.username)
 			else:
 				exam = Exam(title=title,description=description,created_by='HTTP post request')
-			db.add(exam)
-			db.flush()
-			db.commit()
+			db.session.add(exam)
+			db.session.flush()
+			db.session.commit()
 			new_exam = ExamSchema().dump(exam)
 			return new_exam
 	except exc.IntegrityError as e:
-		db.rollback()
+		db.session.rollback()
 	return exam

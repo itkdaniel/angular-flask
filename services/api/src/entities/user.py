@@ -1,14 +1,15 @@
 import sqlalchemy
 from sqlalchemy import Column, String, Boolean
 from sqlalchemy.dialects.postgresql import ARRAY
-from .entity import Entity, Base, Session
+from .entity import Entity, Base#, Session
 from marshmallow import Schema, fields
 # from flask_login import UserMixin
 from src import login_manager, jwt
+from src import db
 
-db = Session()
+# db = Session()
 
-class User(Entity, Base):
+class User(db.Model,Entity, Base):
 	__tablename__ = 'users'
 
 	username = Column(String)
@@ -33,7 +34,8 @@ def user_identity_lookup(user):
 @jwt.user_lookup_loader
 def user_lookup_callback(_jwt_header, jwt_data):
 	identity = jwt_data["sub"]
-	return db.query(User).filter_by(id=identity).first()
+	# return db.query(User).filter_by(id=identity).first()
+	return User.query.filter_by(id=identity).first()
 
 class UserSchema(Schema):
 	id = fields.Number()
