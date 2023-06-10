@@ -11,7 +11,7 @@ and install suggested plugins. Create an admin user by filling in the details an
 
 Click on create new jobs to create a new freestyle project of any name. Under the General tab, you can mention the description for your project and specify the GitHub Project URL.
 
-In Source Code Management tab, click on Git and add the repository URL. Enter the credentials by selecting Add->Jenkins and specifying the username and password of your Git account. This step will copy the repository **angular-flask** from the specified GitHub URL into /var/jenkins_home/workspace thereby creating the workspace inside our python-test-calculator directory.
+In Source Code Management tab, click on Git and add the repository URL. Enter the credentials by selecting Add->Jenkins and specifying the username and password of your Git account. This step will copy the repository **angular-flask** from the specified GitHub URL into /var/jenkins_home/workspace thereby creating the workspace inside our angular-flask directory.
 
 Under Build tab, click on Add build step->Execute shell and copy the following:
 

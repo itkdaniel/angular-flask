@@ -1,4 +1,5 @@
-from .entities.entity import Session, engine, Base
+# from .entities.entity import Session, engine, Base
+# from .entities.entity import Base
 from .entities.exam import Exam
 from .entities.user import User
 from sqlalchemy import create_engine
@@ -8,7 +9,7 @@ from src import db
 
 
 # generate db schema
-Base.metadata.create_all(engine)
+# Base.metadata.create_all(engine)
 
 # test db table exams
 def test_exams():

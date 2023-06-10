@@ -3,12 +3,13 @@ from flask_testing import TestCase
 from src.entities.user import User#, db as user_db
 from src.entities.exam import Exam#, db as exam_db
 # from src.auth import authenticate_user
-from src import create_app, db
+from src import create_app, db, mongo
 import json
 import os
 
 class BaseTestCase(TestCase):
-	app = create_app()	
+	app = create_app()
+	# mongo = mongo.init_app(app)	
 	
 	def create_app(self):
 		self.app.config.from_object("src.config.TestingConfig")
@@ -21,6 +22,7 @@ class BaseTestCase(TestCase):
 		db.drop_all()
 		db.create_all()
 		db.session.commit()
+		mongo.init_app(self.app)
 
 
 	def tearDown(self):
@@ -36,6 +38,7 @@ class BaseTestCase(TestCase):
 		db.create_all()
 		db.session.commit()
 		db.session.close()
+		mongo.db.drop_collection("test")
 
 	def register_user(self):
 		with self.client:
