@@ -25,6 +25,18 @@ ENV DATABASE_URL=postgresql://postgres:postgres@172.17.0.2:5432/online_exam
 ENV MONGO_URL=mongodb://root:root@172.17.0.3:27017/mydatabase?authSource=admin
 ENV SQLALCHEMY_DATABASE_URI=postgresql://postgres:postgres@172.17.0.2:5432/online_exam
 ENV MONGO_URI=mongodb://root:root@172.17.0.3:27017/mydatabase?authSource=admin
+ENV DATABASE_TEST_URL=postgresql://postgres:postgres@172.17.0.2:5432/online_exam_test
+ENV MONGO_TEST_URL=mongodb://root:root@172.17.0.3:27017/mydatabase_test?authSource=admin
+ENV MONGO_INITDB_ROOT_USERNAME=root
+ENV MONGO_INITDB_ROOT_PASSWORD=root
+ENV MONGODB_AUTH_SOURCE=admin
+ENV MONGODB_USERNAME=root
+ENV MONGODB_PASSWORD=root
+ENV MONGODB_DB=mydatabase
+ENV MONGODB_HOST=mongodb
+ENV MONGODB_PORT=27017
+ENV MONGO_INITDB_DATABASE=mydatabase
+ENV SECRET_KEY=lostinthesauce
 
 # copy entrypoint file into container at /api
 COPY entrypoint.sh .
