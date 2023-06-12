@@ -21,7 +21,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Set Flask envrionment variable
 # ENV FLASK_APP=./src/app.py
 
-#ENV APP_SETTINGS_DOCKER=src.config.JenkinsDevelopmentConfig
+ENV APP_SETTINGS=src.config.DevelopmentConfig
 
 ENV JENKINS_DATABASE_URL=postgresql://postgres:postgres@172.17.0.2:5432/online_exam
 ENV JENKINS_MONGO_URL=mongodb://root:root@172.17.0.3:27017/mydatabase?authSource=admin

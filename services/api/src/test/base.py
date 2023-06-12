@@ -12,10 +12,7 @@ class BaseTestCase(TestCase):
 	# mongo = mongo.init_app(app)	
 	
 	def create_app(self):
-		if os.getenv('ENVIRONMENT') == 'compose':
-			self.app.config.from_object("src.config.TestingConfig")
-		else:
-			self.app.config.from_object("src.config.JenkinsTestingConfig")
+		self.app.config.from_object("src.config.TestingConfig")
 		return self.app
 
 	def setUp(self):
