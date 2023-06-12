@@ -46,7 +46,7 @@ class JenkinsTestingConfig(BaseConfig):
 	SQLALCHEMY_DATABASE_URI = os.environ.get('JENKINS_DATABASE_TEST_URL')
 	MONGO_URI = os.environ.get('JENKINS_MONGO_TEST_URL')
 	os.environ['DATABASE_TEST_URL'] = os.environ.get('JENKINS_DATABASE_TEST_URL')
-	os.environ['MONGO_TEST_URL'] = os.environ.get('JENKINS_MONGO_URL')
+	os.environ['MONGO_TEST_URL'] = os.environ.get('JENKINS_MONGO_TEST_URL')
 
 class JenkinsProductionConfig(BaseConfig):
 	"""Jenkins Production Configuration"""
