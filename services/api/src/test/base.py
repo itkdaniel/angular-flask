@@ -23,6 +23,9 @@ class BaseTestCase(TestCase):
 		db.create_all()
 		db.session.commit()
 		mongo.init_app(self.app)
+		# mongo.db.drop_collection("posts")
+		
+
 
 
 	def tearDown(self):
@@ -39,6 +42,7 @@ class BaseTestCase(TestCase):
 		db.session.commit()
 		db.session.close()
 		mongo.db.drop_collection("test")
+		mongo.db.drop_collection("posts")
 
 	def register_user(self):
 		with self.client:

@@ -32,3 +32,19 @@ class ProductionConfig(BaseConfig):
 	SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
 	MONGO_URI = os.environ.get('MONGO_URL')
 	
+class JenkinsDevelopmentConfig(BaseConfig):
+	"""Jenkins Development Configuration """
+	SQLALCHEMY_DATABASE_URI = os.environ.get('JENKINS_DATABASE_URL')
+	MONGO_URI = os.environ.get('JENKINS_MONGO_URL')
+
+class JenkinsTestingConfig(BaseConfig):
+	"""Jenkins Testing Configuration"""
+	TESTING = True
+	SQLALCHEMY_DATABASE_URI = os.environ.get('JENKINS_DATABASE_TEST_URL')
+	MONGO_URI = os.environ.get('JENKINS_MONGO_TEST_URL')
+
+class JenkinsProductionConfig(BaseConfig):
+	"""Jenkins Production Configuration"""
+	SQLALCHEMY_DATABASE_URI = os.environ.get('JENKINS_DATABASE_URL')
+	MONGO_URI = os.environ.get('JENKINS_MONGO_URL')
+	

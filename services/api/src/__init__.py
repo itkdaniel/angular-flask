@@ -17,8 +17,10 @@ mongo = PyMongo()
 def create_app(script_info=None):
 	# instantiate the app
 	app = Flask(__name__)
-
-	app_settings = os.getenv('APP_SETTINGS')
+	if os.environ.get("ENVIRONMENT") == "compose":
+		app_settings = os.getenv('APP_SETTINGS')
+	else:
+		app_settings = os.getenv('APP_SETTINGS_DOCKER')
 	app.config.from_object(app_settings)
 
 	bcrypt.init_app(app)
@@ -37,5 +39,6 @@ def create_app(script_info=None):
 	app.register_blueprint(exams_blueprint)
 	from src.api.users import users_blueprint
 	app.register_blueprint(users_blueprint)
-
+	from src.api.posts import posts_blueprint
+	app.register_blueprint(posts_blueprint)
 	return app

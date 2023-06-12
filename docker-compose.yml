@@ -23,6 +23,7 @@ services:
       - "5000:5000"
     environment:
       FLASK_APP: ./src/app.py
+      ENVIRONMENT: compose
       APP_SETTINGS: src.config.DevelopmentConfig
       DATABASE_URL: postgresql://postgres:postgres@db:5432/online_exam
       DATABASE_TEST_URL: postgresql://postgres:postgres@db:5432/online_exam_test
@@ -45,7 +46,7 @@ services:
         condition: service_healthy
       mongodb:
         condition: service_healthy
-    restart: always
+    # restart: always
     networks:
       - api_nw
       - db_nw
@@ -91,7 +92,7 @@ services:
       interval: 10s
       timeout: 10s
       retries: 3
-    # env_file: .env
+    env_file: .env
     networks:
       - db_nw
 
