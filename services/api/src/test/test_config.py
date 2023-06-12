@@ -9,10 +9,7 @@ app = create_app()
 
 class TestDevelopmentConfig(TestCase):
 	def create_app(self):
-		if os.environ.get("ENVIRONMENT") == "compose":
-			app.config.from_object("src.config.DevelopmentConfig")
-		else:
-			app.config.from_object("src.config.JenkinsDevelopmentConfig")
+		app.config.from_object("src.config.DevelopmentConfig")
 		return app
 
 	def test_app_is_development(self):
@@ -24,10 +21,7 @@ class TestDevelopmentConfig(TestCase):
 
 class TestTestingConfig(TestCase):
 	def create_app(self):
-		if os.environ.get("ENVIRONMENT") == "compose":
-			app.config.from_object("src.config.TestingConfig")
-		else:
-			app.config.from_object("src.config.JenkinsTestingConfig")
+		app.config.from_object("src.config.TestingConfig")
 		return app
 
 	def test_app_is_testing(self):
@@ -39,10 +33,7 @@ class TestTestingConfig(TestCase):
 
 class TestProductionConfig(TestCase):
 	def create_app(self):
-		if os.environ.get("ENVIRONMENT") == "compose":
-			app.config.from_object("src.config.ProductionConfig")
-		else:
-			app.config.from_object("src.config.JenkinsProductionConfig")
+		app.config.from_object("src.config.ProductionConfig")
 		return app
 
 	def test_app_is_production(self):
