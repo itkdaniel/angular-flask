@@ -7,7 +7,7 @@ from src.test.base import BaseTestCase
 class TestUserService(BaseTestCase):
 
 	def test_app_is_testing(self):
-		self.assertTrue(self.app.config['SECRET_KEY'], "lostin_thesauce")
+		self.assertTrue(self.app.config['SECRET_KEY'], "lostinthesauce")
 		self.assertTrue(self.app.config['TESTING'])
 		self.assertTrue(self.app.config['SQLALCHEMY_DATABASE_URI'] == os.environ.get("DATABASE_TEST_URL"))
 

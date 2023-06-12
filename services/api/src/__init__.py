@@ -17,10 +17,8 @@ mongo = PyMongo()
 def create_app(script_info=None):
 	# instantiate the app
 	app = Flask(__name__)
-	if os.environ.get("ENVIRONMENT") == "compose":
-		app_settings = os.getenv('APP_SETTINGS')
-	else:
-		app_settings = os.getenv('APP_SETTINGS_DOCKER')
+	# app_settings = os.getenv("APP_SETTINGS") if os.getenv("ENVIRONMENT") == "compose" else os.getenv("APP_SETTINGS_DOCKER")
+	app_settings = os.getenv("APP_SETTINGS")
 	app.config.from_object(app_settings)
 
 	bcrypt.init_app(app)

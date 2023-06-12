@@ -18,40 +18,54 @@ class BaseConfig:
 
 class DevelopmentConfig(BaseConfig):
 	"""Development Configuration"""
-	SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
-	MONGO_URI = os.environ.get('MONGO_URL')
+	if os.environ.get("ENVIRONMENT") == "compose":
+		SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+		MONGO_URI = os.environ.get('MONGO_URL')
+	else:
+		SQLALCHEMY_DATABASE_URI = os.environ.get('JENKINS_DATABASE_URL')
+		MONGO_URI = os.environ.get('JENKINS_MONGO_URL')
+
 
 class TestingConfig(BaseConfig):
 	"""Testing Configuration"""
 	TESTING = True
-	SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_TEST_URL')
-	MONGO_URI = os.environ.get('MONGO_TEST_URL')
+	if os.environ.get("ENVIRONMENT") == "compose":
+		SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_TEST_URL')
+		MONGO_URI = os.environ.get('MONGO_TEST_URL')
+	else:
+		SQLALCHEMY_DATABASE_URI = os.environ.get('JENKINS_DATABASE_TEST_URL')
+		MONGO_URI = os.environ.get('JENKINS_MONGO_TEST_URL')
+
 
 class ProductionConfig(BaseConfig):
 	"""Production Configuration"""
-	SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
-	MONGO_URI = os.environ.get('MONGO_URL')
+	if os.environ.get("ENVIRONMENT") == "compose":
+		SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+		MONGO_URI = os.environ.get('MONGO_URL')
+	else:
+		SQLALCHEMY_DATABASE_URI = os.environ.get('JENKINS_DATABASE_URL')
+		MONGO_URI = os.environ.get('JENKINS_MONGO_URL')
 	
-class JenkinsDevelopmentConfig(BaseConfig):
-	"""Jenkins Development Configuration """
-	SQLALCHEMY_DATABASE_URI = os.environ.get('JENKINS_DATABASE_URL')
-	MONGO_URI = os.environ.get('JENKINS_MONGO_URL')
-	os.environ['DATABASE_URL'] = os.environ.get('JENKINS_DATABASE_URL')
-	os.environ['MONGO_URL'] = os.environ.get('JENKINS_MONGO_URL')
-
-
-class JenkinsTestingConfig(BaseConfig):
-	"""Jenkins Testing Configuration"""
-	TESTING = True
-	SQLALCHEMY_DATABASE_URI = os.environ.get('JENKINS_DATABASE_TEST_URL')
-	MONGO_URI = os.environ.get('JENKINS_MONGO_TEST_URL')
-	os.environ['DATABASE_TEST_URL'] = os.environ.get('JENKINS_DATABASE_TEST_URL')
-	os.environ['MONGO_TEST_URL'] = os.environ.get('JENKINS_MONGO_TEST_URL')
-
-class JenkinsProductionConfig(BaseConfig):
-	"""Jenkins Production Configuration"""
-	SQLALCHEMY_DATABASE_URI = os.environ.get('JENKINS_DATABASE_URL')
-	MONGO_URI = os.environ.get('JENKINS_MONGO_URL')
-	os.environ['DATABASE_URL'] = os.environ.get('JENKINS_DATABASE_URL')
-	os.environ['MONGO_URL'] = os.environ.get('JENKINS_MONGO_URL')
-
+# class JenkinsDevelopmentConfig(BaseConfig):
+	# """Jenkins Development Configuration """
+	# SQLALCHEMY_DATABASE_URI = os.environ.get('JENKINS_DATABASE_URL')
+	# MONGO_URI = os.environ.get('JENKINS_MONGO_URL')
+	# os.environ['DATABASE_URL'] = os.environ.get('JENKINS_DATABASE_URL')
+	# os.environ['MONGO_URL'] = os.environ.get('JENKINS_MONGO_URL')
+# 
+# 
+# class JenkinsTestingConfig(BaseConfig):
+	# """Jenkins Testing Configuration"""
+	# TESTING = True
+	# SQLALCHEMY_DATABASE_URI = os.environ.get('JENKINS_DATABASE_TEST_URL')
+	# MONGO_URI = os.environ.get('JENKINS_MONGO_TEST_URL')
+	# os.environ['DATABASE_TEST_URL'] = os.environ.get('JENKINS_DATABASE_TEST_URL')
+	# os.environ['MONGO_TEST_URL'] = os.environ.get('JENKINS_MONGO_TEST_URL')
+# 
+# class JenkinsProductionConfig(BaseConfig):
+	# """Jenkins Production Configuration"""
+	# SQLALCHEMY_DATABASE_URI = os.environ.get('JENKINS_DATABASE_URL')
+	# MONGO_URI = os.environ.get('JENKINS_MONGO_URL')
+	# os.environ['DATABASE_URL'] = os.environ.get('JENKINS_DATABASE_URL')
+	# os.environ['MONGO_URL'] = os.environ.get('JENKINS_MONGO_URL')
+# 

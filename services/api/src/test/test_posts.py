@@ -9,7 +9,7 @@ from src import mongo
 class TestPostService(BaseTestCase):
 
 	def test_app_is_testing(self):
-		self.assertTrue(self.app.config['SECRET_KEY'], "lostin_thesauce")
+		self.assertTrue(self.app.config['SECRET_KEY'], "lostinthesauce")
 		self.assertTrue(self.app.config['TESTING'])
 		self.assertTrue(self.app.config['MONGO_URI'] == os.environ.get("MONGO_TEST_URL"))
 

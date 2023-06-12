@@ -16,7 +16,7 @@ class TestDevelopmentConfig(TestCase):
 		return app
 
 	def test_app_is_development(self):
-		self.assertTrue(app.config['SECRET_KEY'], "lostin_thesauce")
+		self.assertTrue(app.config['SECRET_KEY'] == "lostinthesauce")
 		self.assertFalse(current_app is None)
 		self.assertTrue(app.config['SQLALCHEMY_DATABASE_URI'] == os.environ.get("DATABASE_URL"))
 		self.assertTrue(app.config['MONGO_URI'] == os.environ.get("MONGO_URL"))
@@ -31,7 +31,7 @@ class TestTestingConfig(TestCase):
 		return app
 
 	def test_app_is_testing(self):
-		self.assertTrue(app.config['SECRET_KEY'], "lostin_thesauce")
+		self.assertTrue(app.config['SECRET_KEY'] == "lostinthesauce")
 		self.assertTrue(app.config['TESTING'])
 		self.assertTrue(app.config['SQLALCHEMY_DATABASE_URI'] == os.environ.get("DATABASE_TEST_URL"))
 		self.assertTrue(app.config['MONGO_URI'] == os.environ.get("MONGO_TEST_URL"))
@@ -46,7 +46,7 @@ class TestProductionConfig(TestCase):
 		return app
 
 	def test_app_is_production(self):
-		self.assertTrue(app.config['SECRET_KEY'], "lostin_thesauce")
+		self.assertTrue(app.config['SECRET_KEY'] == "lostinthesauce")
 		self.assertFalse(app.config['TESTING'])
 		self.assertTrue(app.config['SQLALCHEMY_DATABASE_URI'] == os.environ.get("DATABASE_URL"))
 		self.assertTrue(app.config['MONGO_URI'] == os.environ.get("MONGO_URL"))
