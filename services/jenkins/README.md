@@ -30,6 +30,52 @@ Under Build tab, click on Add build step->Execute shell and copy the following:
   /bin/sh scripts/docker-down.sh
 ```
 
+```
+echo "Check current working directory"
+pwd
+echo "Building postgres service"
+cd services/db
+docker build -t angular-flask-db --no-cache .
+docker run -d -p 5432:5432 --name db-container angular-flask-db
+echo "Building mongodb service"
+cd ../mongodb
+docker build -t angular-flask-mongodb --no-cache .
+docker run -d -p 27017 --name mongo-container angular-flask-mongodb
+echo "Building flask api service"
+cd ../api
+docker build -t angular-flask-api --no-cache .
+docker run -d -p 5000:5000 --name api-container angular-flask-api
+echo "Building angular frontend service"
+cd ../frontend
+docker build -t angular-flask-frontend --no-cache .
+docker run -d -p 4200:4200 --name frontend-container angular-flask-frontend
+cd ../..
+echo "Check current working directory"
+pwd
+echo "Running Test Cases"
+docker exec api-container pytest -v src/test --junitxml=reports/result.xml
+echo "Copy result.xml into Jenkins container"
+rm -rf reports
+mkdir reports
+docker cp api-container:/api/reports/result.xml reports/
+echo "Cleanup"
+docker stop db-container
+docker rm db-container
+docker rmi angular-flask-db
+echo
+docker stop mongo-container
+docker rm mongo-container
+docker rmi angular-flask-mongodb
+echo
+docker stop api-container
+docker rm api-container
+docker rmi angular-flask-api
+echo
+docker stop frontend-container
+docker rm frontend-container
+docker rmi angular-flask-frontend
+```
+
 In Post-Build Actions tab, we specify the location in workspace of the copied result.xml for publishing. Ensure that JUnit plugin is installed on Jenkins. Save the project configuration.
 
 Click on Build Now in your project to see the magic.
