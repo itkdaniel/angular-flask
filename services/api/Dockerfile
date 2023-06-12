@@ -21,10 +21,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Set Flask envrionment variable
 # ENV FLASK_APP=./src/app.py
 ENV APP_SETTINGS=src.config.DevelopmentConfig
-ENV DATABASE_URL=postgresql://postgres:postgres@db-container:5432/online_exam
-ENV MONGO_URL=mongodb://root:root@mongo-container:27017/mydatabase?authSource=admin
-ENV SQLALCHEMY_DATABASE_URI=postgresql://postgres:postgres@db-container:5432/online_exam
-ENV MONGO_URI=mongodb://root:root@mongo-container:27017/mydatabase?authSource=admin
+ENV DATABASE_URL=postgresql://postgres:postgres@172.17.0.2:5432/online_exam
+ENV MONGO_URL=mongodb://root:root@172.17.0.3:27017/mydatabase?authSource=admin
+ENV SQLALCHEMY_DATABASE_URI=postgresql://postgres:postgres@172.17.0.2:5432/online_exam
+ENV MONGO_URI=mongodb://root:root@172.17.0.3:27017/mydatabase?authSource=admin
 
 # copy entrypoint file into container at /api
 COPY entrypoint.sh .
