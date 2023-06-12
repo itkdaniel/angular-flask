@@ -33,8 +33,10 @@ class TestingConfig(BaseConfig):
 		SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_TEST_URL')
 		MONGO_URI = os.environ.get('MONGO_TEST_URL')
 	else:
-		SQLALCHEMY_DATABASE_URI = os.environ.get('JENKINS_DATABASE_TEST_URL')
-		MONGO_URI = os.environ.get('JENKINS_MONGO_TEST_URL')
+		os.environ['DATABASE_TEST_URL'] = os.environ.get('JENKINS_DATABASE_TEST_URL')
+		os.environ['MONGO_URL'] = os.environ.get('JENKINS_MONGO_TEST_URL')
+		SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_TEST_URL')
+		MONGO_URI = os.environ.get('MONGO_TEST_URL')
 
 
 class ProductionConfig(BaseConfig):
