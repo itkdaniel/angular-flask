@@ -12,7 +12,10 @@ class BaseTestCase(TestCase):
 	# mongo = mongo.init_app(app)	
 	
 	def create_app(self):
-		self.app.config.from_object("src.config.TestingConfig")
+		if os.getenv('ENVIRONMENT') == 'compose':
+			self.app.config.from_object("src.config.TestingConfig")
+		else:
+			self.app.config.from_object("src.config.JenkinsTestingConfig")
 		return self.app
 
 	def setUp(self):
@@ -24,7 +27,7 @@ class BaseTestCase(TestCase):
 		db.session.commit()
 		mongo.init_app(self.app)
 		# mongo.db.drop_collection("posts")
-		
+
 
 
 
