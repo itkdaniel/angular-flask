@@ -1,0 +1,1 @@
+This file contains sample data for sample2.txt

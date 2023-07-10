@@ -6,15 +6,19 @@ import { AddExamComponent } from './add-exam/add-exam.component';
 import { ExamDetailsComponent } from './exam-details/exam-details.component';
 import { RegisterComponent } from './register/register.component';
 import { ExplorePageComponent } from './explore-page/explore-page.component';
+import { ChatComponent } from './chat/chat.component';
+import { HealthcheckComponent } from './healthcheck/healthcheck.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home',pathMatch: 'full' },
-  { path: 'home', component: HomePageComponent },
-  { path: 'exams', component: ExamListComponent },
-  { path: 'exam/:id', component: ExamDetailsComponent },
-  { path:'add-exam', component: AddExamComponent },
-  { path: 'register', component: RegisterComponent},
-  { path: 'explore', component: ExplorePageComponent},
+  { path: 'home', component: HomePageComponent, title: "AngularFlask-Home"},
+  { path: 'exams', component: ExamListComponent, title: "AngularFlask-Exams" },
+  { path: 'exam/:id', component: ExamDetailsComponent , title: "AngularFlask-Exam/:id"},
+  { path:'add-exam', component: AddExamComponent, title:"AngularFlask-AddExam" },
+  { path: 'register', component: RegisterComponent, title: "AngularFlask-Register"},
+  { path: 'explore', component: ExplorePageComponent, title: "AngularFlask-Explore"},
+  { path: 'chat', component: ChatComponent, title: "AngularFlask-Chat" },
+  { path: 'healthcheck', component: HealthcheckComponent, title:"Healthcheck" }
 ];
 
 @NgModule({

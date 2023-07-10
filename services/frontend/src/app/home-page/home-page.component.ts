@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./home-page.component.css']
 })
 export class HomePageComponent {
+  title = "Home";
   status = {"authenticated": false, "username": null}
   // authenticated: boolean = false;
   // current_user = {"username": null};

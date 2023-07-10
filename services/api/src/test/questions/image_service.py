@@ -33,3 +33,81 @@ class ImageService:
 			self.images.remove(image)
 			heapq.heapify(self.images)
 			del self.image_map[image_id]
+
+
+# Given the root of a binary tree, return the leftmost value in the last row of the tree.
+"""
+			2
+		1		3
+- return 1	
+"""
+
+class TreeNode(object):
+	def __init__(self,val=0,left=None,right=0):
+		self.val = val
+		self.left = left
+		self.right = right
+
+class Solution(object):
+	def findBottomLeftValue(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        lmap = self.group_by_level(root, 0, defaultdict(list))
+        return	lmap[max(lmap.keys())][0].val
+
+    def group_nodes_by_level(self, root, level, levels_map):
+    	# level starts at 0
+		levels_map[level].append(root)
+		if root.left:
+			self.group_by_level(root.left, level+1, levels_map)
+		if root.right:
+			self.group_by_level(root.right, level+1, levels_map)
+		return levels_map
+
+	def bstdeepleft(lmap):
+		return lmap[max(lmap.keys())][0]
+
+	# def get_smallest_from_deepest(self, levels_map):
+	# 	left_most = lambda d: map(lambda: ) 
+from collections import defaultdict
+
+one = TreeNode(1)
+two = TreeNode(2)
+three = TreeNode(3)
+four = TreeNode(4)
+five = TreeNode(5)
+six = TreeNode(6)
+seven = TreeNode(7)
+one.left = two
+one.right = three
+two.left = four
+three.left = five
+three.right = six
+five.left = seven
+
+bottomleft = Solution().findBottomLeftValue(one)
+
+lmap = Solution().group_by_level(one, 0, defaultdict(list))
+
+mapping = {key:[item.val for item in value] for key,value in lmap.items()}
+bottomleft = Solution().deepleft(mapping)
+
+## OR
+
+levels = zip(lmap.keys(), lmap.values())
+groups = {level[0]:[g.val for g in level[1]] for level in levels}
+bottomleft = groups[max(groups.keys())][0]
+
+
+
+# [3,2,null,1,-2147483648]
+"""
+				3
+			2	null
+		1	-2147
+
+
+
+"""

@@ -1,0 +1,23 @@
+<!-- <ng-template *ngIf="healthstatus.healthy">
+    
+</ng-template> -->
+<div *ngIf="healthstatus.healthy; else unhealthy">
+    {{ healthstatus.healthMessage.ok }}
+</div>
+
+<ng-template #unhealthy>
+    <div *ngIf="!healthstatus.healthy">
+        {{ healthstatus.healthMessage.err }}
+    </div>
+</ng-template>
+
+
+<div *ngIf="status == 'healthy'; else unhealthyBlock">
+    {{ message }}
+</div>
+
+<ng-template #unhealthyBlock>
+    <div *ngIf="status != 'healthy'">
+        {{ message }}
+    </div>
+</ng-template>

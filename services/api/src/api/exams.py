@@ -9,6 +9,10 @@ from src import db
 
 exams_blueprint = Blueprint('exams', __name__)
 
+@exams_blueprint.route('/api/exams/ping',methods=['GET'])
+def ping_pong():
+	return jsonify({'status':'success','message':'pong'})
+
 @exams_blueprint.route('/api/exams', methods=['GET'])
 @jwt_required(optional=True)
 def get_exams():
@@ -23,6 +27,14 @@ def get_exams():
 	else:
 		# exam_list = db.query(Exam).all()
 		return jsonify({"message": "login to view your exams"})
+
+@exams_blueprint.route('/api/exams/all',methods=['GET'])
+def getall_exams():
+	exam_list = Exam.query.all()
+	schema = ExamSchema(many=True)
+	exams = schema.dump(exam_list)
+	response = jsonify(exams)
+	return response
 
 @exams_blueprint.route('/api/exam/<id>', methods=['GET'])
 def get_exam(id):

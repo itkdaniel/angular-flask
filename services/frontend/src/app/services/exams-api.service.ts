@@ -17,6 +17,10 @@ export class ExamsApiService {
 
   // GET list of public, future events
   getExams(): Observable<any>{
+    const httpHeaders: HttpHeaders = new HttpHeaders({
+      Authorization: 'Bearer JWT-token'
+    });
+    const requestOptions = { headers: httpHeaders };
     if (this.authService.isAuthenticated()) {
       const opts = {
         headers: new HttpHeaders({
@@ -25,7 +29,7 @@ export class ExamsApiService {
       };
       return this.http.get<any>(`${API_BASE_URL}/exams`, opts);
     }
-    return this.http.get<any>(`${API_BASE_URL}/exams`);
+    return this.http.get<any>(`${API_BASE_URL}/exams`,requestOptions);
   }
 
   // GET an exam

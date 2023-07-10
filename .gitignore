@@ -7,6 +7,7 @@ venv/
 
 \.vscode/
 
+services/mongodb/data/
 services/mongodb/.mongodb
 services/mongodb/diagnostic.data
 services/mongodb/journal
@@ -19,7 +20,13 @@ services/mongodb/sizeStorer.wt
 services/mongodb/storage.bson
 services/mongodb/Wired*
 
+services/api/tmp/
 services/api/reports/
+services/api/flask_session/
 
 services/api/.pytest_cache
 services/api/src/__pycache__
+
+
+automation-tests/angular-flask/venv/
+automation-tests/angular-flask/.pytest_cache/

@@ -13,6 +13,11 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ExamDetailsComponent } from './exam-details/exam-details.component';
 import { RegisterComponent } from './register/register.component';
 import { ExplorePageComponent } from './explore-page/explore-page.component';
+import { ChatComponent } from './chat/chat.component';
+import { HealthcheckComponent } from './healthcheck/healthcheck.component';
+import { AuthService } from './services/auth.service';
+import { HealthService } from './services/health.service';
+import { ChatgenService } from './services/chatgen.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +28,9 @@ import { ExplorePageComponent } from './explore-page/explore-page.component';
     NavbarComponent,
     ExamDetailsComponent,
     RegisterComponent,
-    ExplorePageComponent
+    ExplorePageComponent,
+    ChatComponent,
+    HealthcheckComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,7 +39,12 @@ import { ExplorePageComponent } from './explore-page/explore-page.component';
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [ExamsApiService],
+  providers: [
+    ExamsApiService,
+    AuthService,
+    HealthService,
+    ChatgenService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,50 @@
+
+<div style="margin: 30px;" class="bg-gray-300">
+    <h1 style="text-align: center;"><span class="font-bold"><code>Chat With GPT</code></span></h1>
+    <div class="card"  *ngFor="let data of textList">
+      <div class="card-header">
+        <span class="font-bold"><code>What it do</code></span>
+        <form class="needs-validation" >
+          <!-- (ngSubmit)="generateText(data)" -->
+          <div class="input-group my-1 space-y-1 justify-content-center items-center">
+            <div class="flex input-group w-100" name="message" id="message">
+              <input type="text" [(ngModel)]="data.text" class="form-control" name="textdata" placeholder="Add Your Text Here" (keydown.enter)="sanitycheck(data)" required>
+              <div class="input-group-append">
+                <button type="submit" (click)="generateText(data)" class="btn btn-primary" name="submit" >Generate</button>
+              </div>
+            </div>
+            <div class="flex-row input-group space-x-8 justify-center items-center" ngDefaultControl [(ngModel)]="data.role"  id="roles" [ngModelOptions]="{standalone: true}" ngModel>
+              <div class="flex form-check">
+                <label class="form-check-label" for="flexRadioUser">
+                  User
+                </label>
+                <input class="form-check-input" value="user" type="radio" name="flexRoleRadio" id="flexRadioUser" required>
+              </div>
+              <div class="flex form-check">
+                <label class="form-check-label" for="flexRadioAssistant">
+                  Assistant
+                </label>
+                <input class="form-check-input" value="assistant" type="radio" name="flexRoleRadio" id="flexRadioAssistant" required>
+              </div>
+              <div class="flex form-check">
+                <label class="form-check-label" for="flexRadioSystem">
+                  System
+                </label>
+                <input class="form-check-input" value="system" type="radio" name="flexRoleRadio" id="flexRadioSystem" required>
+              </div>
+              <div class="invalid-feedback">More example invalid feedback text</div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="float-start">
+        <div class="card-footer bg-gray-300">
+          <span class="text-muted"><code><small>2 days ago</small></code></span> 
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-text"></p>
+        {{data.response}}
+      </div>
+    </div>
+  </div>

@@ -41,6 +41,14 @@ echo "Building mongodb service"
 cd ../mongodb
 docker build -t angular-flask-mongodb --no-cache .
 docker run -d -p 27017 --name mongo-container angular-flask-mongodb
+echo "Building redis service"
+cd ../redis
+docker build -t angular-flask-redis --no-cache .
+docker run -d -p 6379:6379 --name redis-container angular-flask-redis
+echo "Building redisinsight service"
+cd ../redisinsight
+docker build -t angular-flask-redisinsight --no-cache .
+docker run -d -p 8001:8001 --name redisinsight-container angular-flask-redisinsight
 echo "Building flask api service"
 cd ../api
 docker build -t angular-flask-api --no-cache .

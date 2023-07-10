@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { User } from '../models/user.mode';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -9,7 +10,7 @@ import { User } from '../models/user.mode';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  constructor (private fb: FormBuilder, private auth: AuthService) {}
+  constructor (private fb: FormBuilder, private router: Router, private auth: AuthService) {}
 
   registerForm = this.fb.group({
     username: ['', Validators.required],
@@ -29,6 +30,9 @@ export class RegisterComponent {
         this.new_user = data['user'];
         console.log(`new_user username: ${this.new_user?.username}`)
         console.log(JSON.stringify(data['user']));
+        if (data['status'] == 'success'){
+          this.router.navigateByUrl("/home")
+        }
       })
     }
   }

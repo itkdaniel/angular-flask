@@ -9,16 +9,22 @@
 </head>
 </html>
 
-<nav class="flex w-100 navbar hover:bg-gray-700 border-b-2 border-gray-200 items-center">
-    <a class="navbar-brand hover:bg-gray-300 font-bold text-3xl" href="#">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/a/aa/Guess_Quiz_Logo.png" width="32" height="32" class="d-inline-block align-top" class="hover:bg-blue-200 d-inline-block align-center" alt="Logo">
+<nav class="w-100 navbar bg-dark hover:bg-gray-700 border-b-2 border-gray-200 align-center justify-content-center items-center">
+    <a class="flex-shrink-0 justify-content-center align-content-center navbar-brand hover:bg-gray-300 font-bold text-3xl" href="#">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/aa/Guess_Quiz_Logo.png" width="32" height="32" class="hover:bg-blue-200 d-inline-block" alt="Logo">
       TikTok
     </a>
-    <div class="flex w-32 h-10 rounded-lg bg-blue-200 items-center">
-      <a routerLink="/explore" class="w-100 h-10 py-2 hover:bg-blue-300 rounded-lg text-center font-bold">Explore</a>
+    <div class="flex space-x-2 hover:bg-blue-400 justify-content-center">
+      <div class="flex w-32 h-10 rounded-lg bg-blue-200 justify-center items-center">
+        <a routerLink="/explore" class="w-100 justify-center w-100 h-10 py-2 hover:bg-blue-300 rounded-lg text-center font-bold">Explore</a>
+      </div>
+      <div class="flex w-32 h-10 rounded-lg bg-blue-200 justify-center items-center">
+        <a routerLink="/chat" class="w-100 justify-center w-100 h-10 py-2 hover:bg-blue-300 rounded-lg text-center font-bold">Chat</a>
+      </div>
+
     </div>
-    <div class="flex w-50 h-10 hover:bg-green-400">
-        <div class="mx-64 w-50 border-2 hover:border-gray-500 rounded-full">
+    <div class="flex w-25 h-10 hover:bg-green-400 mx-auto justify-center items-center">
+        <div class="w-100 border-2 hover:border-gray-500 rounded-full">
             <input id="search" class="w-100 pl-4 h-10 bg-gray-300 hover:bg-gray-200 rounded-full"
                                 placeholder="Search"
                                 autocomplete="off"
@@ -27,23 +33,23 @@
         </div>
     </div>
   
-    <div class="flex w-25 h-10 space-x-2 hover:bg-gray-500 items-center">
-        <div class="flex w-100 space-x-2">
-            <a routerLink="/exams" class="w-50 py-2 h-10 text-white bg-red-600 hover:bg-red-700 rounded-lg text-center font-bold">Exams</a>
-            <a routerLink="/add-exam" class="w-50 py-2 h-10 text-white bg-red-600 hover:bg-red-700 rounded-lg text-center font-bold"><span class="mr-1 text-lg">+</span>Exam</a>
+    <div class="flex justify-content-end align-content-center w-25 h-10 space-x-2 hover:bg-gray-500">
+        <div class="flex w-100 space-x-2 align-items-center">
+            <a routerLink="/exams" class="flex w-50 h-10 text-white bg-red-600 hover:bg-red-700 rounded-lg align-center items-center justify-center font-bold">Exams</a>
+            <a routerLink="/add-exam" class="flex w-50 h-10 text-white bg-red-600 hover:bg-red-700 rounded-lg  align-center items-center justify-center font-bold"><span class="mr-1 text-lg">+</span>Exam</a>
             <div *ngIf="authenticated" class="flex w-100 space-x-2">
-              <a routerLink="/logout" class="w-50 py-2 h-10 text-white bg-red-600 hover:bg-red-700 rounded-lg text-center font-bold">Logout</a>
+              <a routerLink="/logout" class="flex w-50 h-10 text-white bg-red-600 hover:bg-red-700 rounded-lg  align-center items-center justify-center font-bold">Logout</a>
             </div>
             <div *ngIf="!authenticated" class="flex w-100 space-x-2">
-              <a routerLink="/home" class="w-50 py-2 h-10 text-white bg-red-600 hover:bg-red-700 rounded-lg text-center font-bold">Login</a>
-              <a routerLink="/register" class="w-50 py-2 h-10 text-white bg-red-600 hover:bg-red-700 rounded-lg text-center font-bold">Register</a>
+              <a routerLink="/home" class="flex w-50 h-10 text-white bg-red-600 hover:bg-red-700 rounded-lg  align-center items-center justify-center font-bold">Login</a>
+              <a routerLink="/register" class="flex w-50 h-10 text-white bg-red-600 hover:bg-red-700 rounded-lg  align-center items-center justify-center font-bold">Register</a>
             </div>
-        </div>
-        <a href="#" class="space-y-1">
-            <div class="w-2 h-2 sm:w-28 md:w-2 lg:w-2 bg-gray-700 rounded-full"></div>
-            <div class="w-2 h-2 bg-gray-700 rounded-full"></div>
-            <div class="w-2 h-2 bg-gray-700 rounded-full"></div>
-      </a>
-    </div>
+            <a href="#" class="flex-column space-y-1 justify-between my-auto">
+                <div class="w-2 h-2 sm:w-28 md:w-2 lg:w-2 bg-gray-700 rounded-full"></div>
+                <div class="w-2 h-2 bg-gray-700 rounded-full"></div>
+                <div class="w-2 h-2 bg-gray-700 rounded-full"></div>
+            </a>
+          </div>
+      </div>
   </nav>
   
