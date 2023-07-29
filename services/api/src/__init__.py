@@ -44,11 +44,11 @@ def create_app(script_info=None):
 	jwt.init_app(app)
 	cors.init_app(app)
 	db.init_app(app)
-	fksession.init_app(app)
 	whooshee.init_app(app)
 	mongo.init_app(app)
 	redisdb.init_app(app)
 	migrate.init_app(app,db)
+	fksession.init_app(app)
 
 	if not os.path.exists(UPLOAD_DIRECTORY):
 		os.makedirs(UPLOAD_DIRECTORY)
