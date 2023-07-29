@@ -8,6 +8,7 @@ import { RegisterComponent } from './register/register.component';
 import { ExplorePageComponent } from './explore-page/explore-page.component';
 import { ChatComponent } from './chat/chat.component';
 import { HealthcheckComponent } from './healthcheck/healthcheck.component';
+import { DdsComponent } from './dds/dds.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home',pathMatch: 'full' },
@@ -18,7 +19,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent, title: "AngularFlask-Register"},
   { path: 'explore', component: ExplorePageComponent, title: "AngularFlask-Explore"},
   { path: 'chat', component: ChatComponent, title: "AngularFlask-Chat" },
-  { path: 'healthcheck', component: HealthcheckComponent, title:"Healthcheck" }
+  { path: 'healthcheck', component: HealthcheckComponent, title:"Healthcheck" },
+  { path: 'dds', component: DdsComponent, title: "Angular-Flask-DDS" },
 ];
 
 @NgModule({

@@ -1,0 +1,150 @@
+<!-- <p>dds works!</p> -->
+<head>
+</head>
+
+<div class="container vh100 w-100 space-y-4 border-gray-100 m-4">
+    <div class="row container items-center">
+        <div class="col text-green-700 text-5xl text-primary">
+            Patient Form
+        </div>
+        <div class="col">
+            <div class="input-group w-100 space-x-2 items-center">
+                <label id="pfile-label" class="input-group-text text-info" for="pfile">Upload Patient File</label>
+                <input style="resize: horizontal;" id="pfile" type="file" class="form-control w-full rounded"/>
+            </div>
+        </div>
+    </div>
+    <div class="form row w-100 items-center">
+        <form [formGroup]="patientForm" (ngSubmit)="onSubmit" class="w-100" #form>
+            <div class="row container w-100 items-center" name="personal">
+                <span class="container text-xl">Personal</span>
+                <div class="col form-group" aria-labeledBy="first name">
+                    <div class="input-group space-x-2 items-center">
+                        <label id="fname-label" class="form-label input-group-text text-info" for="firstName">First Name</label>
+                        <input id="firstName" type="text" class="form-control w-full rounded" formControlName="firstName" data-toggle="tooltip" title="first name" placeholder="first name" aria-describedby="fname-label" required/>
+                    </div>
+                </div>
+                <div class="col form-group" aria-labeledby="last name">
+                    <div class="input-group space-x-2 items-center">
+                        <label id="lname-label" class="form-label input-group-text text-info" for="lastName">Last Name</label>
+                        <input id="lastName" tpye="text" class="form-control w-full rounded" formControlName="lastName" data-toggle="tooltip" title="last name" placeholder="last name" aria-describedby="lname-label" required/>
+                    </div>
+                </div>
+                <div class="col form-group" aria-labelledby="date of birth">
+                    <!-- <p> {{ dob.value | date }}</p> -->
+                    <!-- <p> {{ dob }}</p> -->
+                    <div class="input-group space-x-2 items-center">
+                        <label id="dob-label" class="form-label input-group-text text-info" for="dateofbirth">Date of Birth</label>
+                        <input id="dateofbirth" type="date" class="form-control w-full rounded" (focus)="showPicker()" (change)="onChangeEvent($event)" (keydown.enter)="onSubmit()" formControlName="dateofbirth" data-toggle="tooltip" title="date of birth" placeholder="yyyy-mm-dd" aria-describedby="dob-label" data-provide="datepicker" date-date-format="mm-dd-yyyy" data-date-language="en" #dob ngModel required>
+                        <!-- ngDefaultControl [(ngModel)]="dob" ngModel -->
+                        <!-- <button [(attributes)]="attributes"></button> -->
+                    </div>
+                </div>
+                <div class="col form-group" aria-labelledby="age">
+                    <div class="input-group space-x-2 items-center">
+                        <label id="age-label" class="form-label input-group-text text-info" for="age">age</label>
+                        <input id="age" type="number" class="form-control w-full rounded" [attributes]="attributes" formControlName="age" data-toggle="tooltip" title="age" placeholder="age" aria-describedby="age-label"/>
+                    </div>
+                </div>
+                <div class="row container w-100 items-center">
+                    <div class="col form-group" aria-labelledby="ssn">
+                        <div class="input-group space-x-2 items-center">
+                            <label id="ssn-label" class="form-label input-group-text w-25 text-info" for="ssn">SSN</label>
+                            <input id="ssn" type="number" class="form-control w-full rounded" pattern="[\d]{3}-[\d]{3}-[\d]{4}" formControlName="ssn" data-toggle="tooltip" placeholder="123-456-7890" aria-describedby="ssn-label" required/>
+                        </div>
+                    </div>
+                    <div class="col form-group w-50" aria-labelledby="gender">
+                        <div class="input-group space-x-2 items-center">
+                            <label id="gender-label" class="form-label input-group-text w-25 text-info" for="gender">gender</label>
+                            <select id="gender" style="resize: horizontal;" #g [(ngModel)]="gender" [ngModelOptions]="{standalone: true}" draggable="true" class="form-control w-50 rounded" data-toggle="tooltip" title="gender" aria-describedby="gender-label" required>
+                                <option selected >Choose...</option>
+                                <optgroup id="human" name="human" label="Human">
+                                    <option id="male" value="male" data-toggle="tooltip" title="male">Male (M)</option>
+                                    <option id="female" value="female" data-toggle="tooltip" title="female">Female (F)</option>
+                                    <option id="other" value="other" data-toggle="tooltip" title="other">Other (O)</option>
+                                </optgroup>
+                            </select>
+                            <!-- <span class="row container" *ngIf="g.value == 'Choose...' || 'male' || 'female'"><p>{{g.value}}</p></span> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container w-100 mt-6 items-center" name="address">
+                <span class="container text-xl">Address</span>
+                <div formGroupName="address" class="container space-y-4 items-center">
+                    <div class="row w-100">
+                        <div class="col w-100" aria-labelledby="street">
+                            <div class="input-group space-x-2 w-100 items-center">
+                                <span class="text-center w-25">
+                                    <label id="street-label" class="input-group-text w-100 text-info" for="street">
+                                        <span class="w-100 text-center">street</span>    
+                                    </label>
+                                </span>
+                                <input id="street" type="text" class="form-control rounded" formControlName="street" data-toggle="tooltip" title="street" placeholder="123 south example st" aria-describedby="street-label"/>
+                            </div>
+                        </div>
+                        <div class="col w-100" aria-labelledby="city">
+                            <div class="input-group space-x-2 w-100 items-center">
+                                <label id="city-label" class="form-label input-group-text w-25 text-info" for="city">
+                                    <span class="w-100 text-center">city</span>
+                                </label>
+                                <input id="city" type="text" class="form-control rounded" formControlName="city" data-toggle="tooltip" title="street" placeholder="rack city" aria-describedby="city-label"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row w-100">
+                        <div class="col w-100" aria-labelledby="state">
+                            <div class="input-group space-x-2 w-75 items-center">
+                                <span class="text-center w-25">
+                                    <label id="state-label" class="input-group-text w-100 text-info" for="state">
+                                        <span class="w-100 text-center">state</span>
+                                    </label>
+                                </span>
+                                <input id="state" type="text" class="form-control rounded" formControlName="state" data-toggle="tooltip" title="state" placeholder="golden state" aria-describedby="state-label"/>
+                            </div>
+                        </div>
+                        <div class="col w-100" aria-labelledby="zipcode">
+                            <div class="input-group space-x-2 w-75 items-center">
+                                <span class="text-center w-25">
+                                    <label id="zipcode-label" class="input-group-text w-100 text-info" for="zipcode">
+                                        <span class="w-100 text-center">zipcode</span>
+                                    </label>
+                                </span>
+                                <input id="zipcode" type="number" class="form-control rounded" formControlName="zipcode" data-toggle="tooltip" title="zipcode" placeholder="12345" aria-describedby="zipcode-label"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row container mt-10 items-center">
+                <span class="container text-xl">Contact</span>
+                <div class="col form-group w-100" aria-labelledby="email">
+                    <div class="input-group space-x-2 w-100 items-center">
+                        <span class="text-center w-25">
+                            <label id="email-label" class="input-group-text w-100 text-info" for="email">
+                                <span class="w-100 text-center">email</span>
+                            </label>
+                        </span>
+                        <input id="email" type="email" class="form-control rounded" data-toggle="tooltip" title="email" placeholder="example@email.com" aria-describedby="email-label"/>
+                    </div>
+                </div>
+                <div class="col form-group w-100" aria-labelledby="mobile">
+                    <div class="input-group space-x-2 w-100 items-center">
+                        <span class="text-center w-25">
+                            <label id="mobile-label" class="input-group-text w-100 text-info" for="mobile">
+                                <span class="w-100 text-center">mobile</span>
+                            </label>
+                        </span>
+                        <input id="mobile" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" minlength="9" maxlength="14" class="form-control rounded" data-toggle="tooltip" title="mobile" placeholder="123-456-7890" aria-describedby="mobile-label">
+                    </div>
+                </div>
+            </div>
+            <div class="row container w-100">
+                <div class="d-inline-block input-group w-100 text-center">
+                    <button id="submit" class="btn btn-info btn-outline-warning text-light mt-6 float-center hover:bg-gray-600" type="submit" data-toggle="button" aria-pressed="false">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
