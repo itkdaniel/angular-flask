@@ -24,7 +24,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Set Flask envrionment variable
-# ENV FLASK_APP=./src/app.py
+# ENV FLASK_APP=manage.py
 
 ENV APP_SETTINGS=src.config.DevelopmentConfig
 
@@ -42,8 +42,8 @@ ENV JENKINS_MONGO_TEST_URL=mongodb://root:root@172.17.0.3:27017/mydatabase_test?
 
 # REDIS_OM_URL=redis://default:<password>@<host>:<port>
 
-ENV MONGO_INITDB_ROOT_USERNAME=root
-ENV MONGO_INITDB_ROOT_PASSWORD=root
+ENV MONGODB_INITDB_ROOT_USERNAME=root
+ENV MONGODB_INITDB_ROOT_PASSWORD=root
 ENV MONGODB_AUTH_SOURCE=admin
 ENV MONGODB_USERNAME=root
 ENV MONGODB_PASSWORD=root
