@@ -17,7 +17,7 @@ def healthcheck_frontend():
 	return jsonify(response)
 	# 😀😵
 
-@healthchecks_blueprint.route('/api/healthcheck/',methods=['GET'])
+@healthchecks_blueprint.route('/healthcheck',methods=['GET'])
 def healthcheck_api():
 	"""
 		Endpoint used for api docker healthcheck
