@@ -1,0 +1,27 @@
+/* body {
+    margin: 0;
+    padding: 0;
+    background-color: #343541;
+    display: flex;
+} */
+
+.main {
+    height: 858px;
+}
+
+.app-chat {
+    display: flex;
+    flex-direction: column;
+}
+
+.msg-item {
+    max-width: 250px;
+}
+
+textarea.form-control:focus {
+    border-color: #cccccc;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+
+}
+

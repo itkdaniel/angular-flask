@@ -1,50 +1,90 @@
-
-<div style="margin: 30px;" class="bg-gray-300">
-    <h1 style="text-align: center;"><span class="font-bold"><code>Chat With GPT</code></span></h1>
-    <div class="card"  *ngFor="let data of textList">
-      <div class="card-header">
-        <span class="font-bold"><code>What it do</code></span>
-        <form class="needs-validation" >
-          <!-- (ngSubmit)="generateText(data)" -->
-          <div class="input-group my-1 space-y-1 justify-content-center items-center">
-            <div class="flex input-group w-100" name="message" id="message">
-              <input type="text" [(ngModel)]="data.text" class="form-control" name="textdata" placeholder="Add Your Text Here" (keydown.enter)="sanitycheck(data)" required>
-              <div class="input-group-append">
-                <button type="submit" (click)="generateText(data)" class="btn btn-primary" name="submit" >Generate</button>
-              </div>
-            </div>
-            <div class="flex-row input-group space-x-8 justify-center items-center" ngDefaultControl [(ngModel)]="data.role"  id="roles" [ngModelOptions]="{standalone: true}" ngModel>
-              <div class="flex form-check">
-                <label class="form-check-label" for="flexRadioUser">
-                  User
-                </label>
-                <input class="form-check-input" value="user" type="radio" name="flexRoleRadio" id="flexRadioUser" required>
-              </div>
-              <div class="flex form-check">
-                <label class="form-check-label" for="flexRadioAssistant">
-                  Assistant
-                </label>
-                <input class="form-check-input" value="assistant" type="radio" name="flexRoleRadio" id="flexRadioAssistant" required>
-              </div>
-              <div class="flex form-check">
-                <label class="form-check-label" for="flexRadioSystem">
-                  System
-                </label>
-                <input class="form-check-input" value="system" type="radio" name="flexRoleRadio" id="flexRadioSystem" required>
-              </div>
-              <div class="invalid-feedback">More example invalid feedback text</div>
-            </div>
-          </div>
-        </form>
+<section class="main d-flex flex-column align-items-center justify-content-between ">
+  <div class="card w-100">
+    <span><small><strong>
+      <div class="card align-center text-center">
+        {{data | json}}
       </div>
-      <div class="float-start">
-        <div class="card-footer bg-gray-300">
-          <span class="text-muted"><code><small>2 days ago</small></code></span> 
-        </div>
+      </strong></small></span>
+    <span><small><strong>
+      <div class="card align-center text-center">
+        Chat Size: {{textList.length}}
+        date: {{date|date}}
+        time: {{time}}
       </div>
-      <div class="card-body">
-        <p class="card-text"></p>
-        {{data.response}}
-      </div>
+      </strong></small></span>
+    <span class="overflow-scroll"><small><strong>
+    <div style="resize: vertical;" class="card overflow-auto align-center text-center">
+      textList: {{textList | json}}
     </div>
+    </strong></small></span>
   </div>
+
+  <div class="d-flex flex-column card w-100 h-100 bg-dark text-white justify-content-end ">
+    <div class="d-flex flex-column h-100 space-y-2 justify-content-end ">
+      <cdk-virtual-scroll-viewport #CdkVirtualScrollViewport appendOnly itemSize="50" class="d-flex flex-column h-100 justify-content-end">
+        <div *cdkVirtualFor="let data of textList" class="app-chat mx-4 my-2 justify-content-end ">
+          <div *ngIf="data.role == 'user'; else elseBlock" class=" d-flex justify-content-end align-items-center float-right">
+            <span class="msg-item text-wrap border border-primary p-2 float-right rounded">
+              <p [innerHTML]="data.text"></p>
+            </span>
+            <label class="d-flex float-right right-0 ml-2 text-muted"><small>{{data.role}}</small></label>
+          </div>
+          <ng-template #elseBlock>
+            <div *ngIf="data.role !== 'user'" class="d-flex justify-content-start align-items-center float-left">
+              <label class="float-left left-0 mr-2 text-muted"><small>{{data.role}}</small></label>
+              <span class="msg-item text-wrap border border-success p-2 float-right rounded">
+                <p [innerHTML]="data.response"></p>
+              </span>
+            </div>
+          </ng-template>
+        </div>
+      </cdk-virtual-scroll-viewport>
+      
+    </div>
+    <div class="d-flex flex-column w-100">
+      <div class="card-header align-center items-center w-100 bg-secondary">
+       <span><code>what it do</code></span>
+       <form>
+         <div class="input-group position-fixed-bottom justify-content-center items-center">
+           <div class="flex input-group w-100">
+             <textarea id="prompt" class="form-control rounded-full bg-transparent text-white" rows="1"  ngDefaultControl [(ngModel)]="data.text"  [ngModelOptions]="{standalone: true}" ngModel>{{data.text}}</textarea>
+             <div class="input-group-append">
+               <button type="submit" class="btn btn-primary" (click)="generateText(data)">Submit</button>
+             </div>
+           </div>
+         </div>
+         <div class="flex-row input-group justify-content-center align-items-center mt-3" ngDefaultControl [(ngModel)]="data.role" [ngModelOptions]="{standalone: true}" ngModel>
+             <div class="flex form-check mr-2">
+               <input checked class="form-check-input" type="radio" name="RoleRadio" id="user" value="user"  required>
+               <!-- [checked]="data.role == 'user'" -->
+               <label class="form-check-label" for="user">User</label>
+             </div>
+             <div class="flex form-check mr-2">
+               <input class="form-check-input" type="radio" name="RoleRadio" id="assistant" value="assistant"  required>
+               <!-- [checked]="data.role == 'assistant'" -->
+               <label class="form-check-label" for="assistant">Assistant</label>
+             </div>
+             <div class="flex form-check">
+               <input class="form-check-input" type="radio" name="RoleRadio" id="system" value="system"  required>
+               <!-- [checked]="data.role == 'system'" -->
+               <label class="form-check-label" for="system">System</label>
+             </div>
+         </div>
+        
+       </form>
+     </div>
+ 
+     <div class="card-footer w-100">
+       <span>
+         <small><strong><code>checked: <span *ngIf="data.role"><strong>{{data.role}}</strong></span></code></strong></small>
+       </span>
+       <span><small><strong><code> , text:  <span *ngIf="data.text"><strong>{{data.text}}</strong></span></code></strong></small>
+       </span>
+     </div>
+    </div>
+   </div>
+</section>
+
+
+
+

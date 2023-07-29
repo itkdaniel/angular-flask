@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+// import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
 
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -18,6 +20,9 @@ import { HealthcheckComponent } from './healthcheck/healthcheck.component';
 import { AuthService } from './services/auth.service';
 import { HealthService } from './services/health.service';
 import { ChatgenService } from './services/chatgen.service';
+import { DdsComponent } from './dds/dds.component';
+import { AttributeDirective } from './directives/attribute/attribute.directive';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -31,6 +36,8 @@ import { ChatgenService } from './services/chatgen.service';
     ExplorePageComponent,
     ChatComponent,
     HealthcheckComponent,
+    DdsComponent,
+    AttributeDirective,
   ],
   imports: [
     BrowserModule,
@@ -38,6 +45,8 @@ import { ChatgenService } from './services/chatgen.service';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    ScrollingModule,
   ],
   providers: [
     ExamsApiService,

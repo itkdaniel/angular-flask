@@ -1,1 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* html, body { height: 100%; } */
+body { margin: 0; padding: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: #343541;}
+
+.cdk-virtual-scroll-content-wrapper {
+    bottom: 25 !important;
+}
+
+/* .cdk-virtual-scroll-content-wrapper {
+    position: fixed;
+    bottom: 0;
+    padding-bottom: 175px;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    z-index: -10;
+} */
+
+/* .cdk-virtual-scroll-viewport {
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    height: 858px;
+}
+ */
