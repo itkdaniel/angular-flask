@@ -32,7 +32,7 @@ export class AuthService {
         Authorization: 'Bearer ' + localStorage.getItem('accessToken')  // tslint:disable-line:object-literal-key-quotes
       })
     };
-    return this.http.post<any>(`${API_BASE_URL}/users/status`, {"username": username}, opts)
+    return this.http.post<any>(`${API_BASE_URL}/api/users/status`, {"username": username}, opts)
       .pipe(
         map(response => {
           console.log(`status response: ${JSON.stringify(response)}`);
@@ -43,7 +43,7 @@ export class AuthService {
 
   loginUser(username: any, password: any): Observable<any> {
     let user = new User(username,password);
-    return this.http.post<any>(`${API_BASE_URL}/users/login`, user, requestOptions)
+    return this.http.post<any>(`${API_BASE_URL}/api/users/login`, user, requestOptions)
       .pipe(
         map(response => {
           // console.log(`auth service access token: ${response["access_token"]}`)
@@ -58,7 +58,7 @@ export class AuthService {
 
   registerUser(username: any, password: any): Observable<any> {
     let user = new User(username,password);
-    return this.http.post<any>(`${API_BASE_URL}/users/register`, user, requestOptions)
+    return this.http.post<any>(`${API_BASE_URL}/api/users/register`, user, requestOptions)
       .pipe(
         catchError((e) => {
           console.log('error caught in register service');

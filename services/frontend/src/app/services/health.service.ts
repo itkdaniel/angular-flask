@@ -43,7 +43,7 @@ export class HealthService {
   }
 
   checkHealth(): Observable<any> {
-    return this.http.get<any>(`${API_BASE_URL}/frontend/healthcheck/`, requestOptions)
+    return this.http.get<any>(`${API_BASE_URL}/api/frontend/healthcheck/`, requestOptions)
       .pipe(
         map((response: any) => {
           console.log(`healthcheck response: ${JSON.stringify(response)}`); 

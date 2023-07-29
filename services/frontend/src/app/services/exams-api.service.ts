@@ -27,14 +27,14 @@ export class ExamsApiService {
           Authorization: 'Bearer ' + localStorage.getItem('accessToken')  // tslint:disable-line:object-literal-key-quotes
         })
       };
-      return this.http.get<any>(`${API_BASE_URL}/exams`, opts);
+      return this.http.get<any>(`${API_BASE_URL}/api/exams`, opts);
     }
-    return this.http.get<any>(`${API_BASE_URL}/exams`,requestOptions);
+    return this.http.get<any>(`${API_BASE_URL}/api/exams`,requestOptions);
   }
 
   // GET an exam
   getExam(id: any): Observable<Exam> {
-    return this.http.get<Exam>(`${API_BASE_URL}/exam/`+ id); 
+    return this.http.get<Exam>(`${API_BASE_URL}/api/exam/`+ id); 
   }
 
   // POST exam details
@@ -51,9 +51,9 @@ export class ExamsApiService {
           Authorization: 'Bearer ' + localStorage.getItem('accessToken')  // tslint:disable-line:object-literal-key-quotes
         })
       };
-      return this.http.post<Exam>(`${API_BASE_URL}/exams`, exam, opts);
+      return this.http.post<Exam>(`${API_BASE_URL}/api/api/exams`, exam, opts);
     }
-    return this.http.post<Exam>(`${API_BASE_URL}/exams`, exam, requestOptions);
+    return this.http.post<Exam>(`${API_BASE_URL}/api/apiexams`, exam, requestOptions);
   } 
 }
 
