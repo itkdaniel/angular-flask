@@ -33,3 +33,5 @@ services/api/src/__pycache__
 
 automation-tests/angular-flask/venv/
 automation-tests/angular-flask/.pytest_cache/
+
+scripts/tmp/
